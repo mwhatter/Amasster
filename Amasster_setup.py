@@ -102,7 +102,6 @@ def clone_repo():
     if os.path.exists('Amasster'):
         shutil.rmtree('Amasster', onerror=on_rm_error)
     run_command(['git', 'clone', repo_url])
-    os.chdir('Amasster')
 
 def on_rm_error(func, path, exc_info):
     import stat
@@ -114,26 +113,28 @@ def ensure_executables():
         run_command(['chmod', '-R', '+x', '.'])
 
 def main():
-    require_admin_privileges()
+    # Non-root tasks
+    if not shutil.which('git'):
+        print("Git not found. Installing Git...")
+        require_admin_privileges()
+        install_git()
+
+    clone_repo()
+    os.chdir('Amasster')
 
     python_executable = setup_virtual_environment()
     check_and_install_packages(['requests', 'pandas', 'pyyaml', 'tkinter'], python_executable)
 
-    if not shutil.which('git'):
-        print("Git not found. Installing Git...")
-        install_git()
+    ensure_executables()
 
-    if shutil.which('amass'):
-        print("Amass is already installed.")
-    else:
+    # Root tasks
+    if not shutil.which('amass'):
         print("Amass not found. Installing Amass...")
+        require_admin_privileges()
         latest_version = get_latest_amass_version()
         install_amass(latest_version)
-
-    if os.path.basename(os.getcwd()) != 'Amasster' or not os.path.exists('Amasster_intel.py'):
-        clone_repo()
-
-    ensure_executables()
+    else:
+        print("Amass is already installed.")
 
     print("Setup complete. Amasster will activate your virtual environment when it is needed.")
 
