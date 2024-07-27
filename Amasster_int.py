@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import platform
 
 VENV_DIR = "venv"
 
@@ -11,14 +12,22 @@ def setup_virtual_environment():
     if not os.path.exists(VENV_DIR):
         print("Creating virtual environment...")
         subprocess.check_call([sys.executable, "-m", "venv", VENV_DIR])
-    python_executable = os.path.join(VENV_DIR, 'bin', 'python')
+    if platform.system() == 'Windows':
+        python_executable = os.path.join(VENV_DIR, 'Scripts', 'python.exe')
+    else:
+        python_executable = os.path.join(VENV_DIR, 'bin', 'python')
+    print(f"Using Python executable: {python_executable}")
     subprocess.check_call([python_executable, "-m", "pip", "install", "--upgrade", "pip"])
     subprocess.check_call([python_executable, "-m", "pip", "install", "pandas", "pyyaml", "tk"])
 
 def check_and_activate_venv():
     if not is_running_in_venv():
         setup_virtual_environment()
-        python_executable = os.path.join(VENV_DIR, 'bin', 'python')
+        if platform.system() == 'Windows':
+            python_executable = os.path.join(VENV_DIR, 'Scripts', 'python.exe')
+        else:
+            python_executable = os.path.join(VENV_DIR, 'bin', 'python')
+        print(f"Re-running script with virtual environment Python: {python_executable}")
         subprocess.run([python_executable] + sys.argv)
         sys.exit(0)
 
@@ -26,6 +35,10 @@ def call_script(script_name):
     try:
         subprocess.Popen([sys.executable, script_name])
     except subprocess.CalledProcessError as e:
+        import tkinter as tk
+        from tkinter import messagebox
+        root = tk.Tk()
+        root.withdraw()
         messagebox.showerror("Error", f"Failed to run {script_name}: {e}")
 
 check_and_activate_venv()
