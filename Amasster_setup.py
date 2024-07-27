@@ -135,11 +135,7 @@ def main():
 
     ensure_executables()
 
-    print("Setup complete. To activate the virtual environment, run:")
-    if platform.system() == 'Windows':
-        print("venv\\Scripts\\activate")
-    else:
-        print("source venv/bin/activate")
+    print("Setup complete. Amasster will activate your virtual environment when it is needed.")
 
 if __name__ == '__main__':
     main()
