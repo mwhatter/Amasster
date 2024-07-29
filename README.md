@@ -18,7 +18,7 @@ Amasster is a powerful, cross-platform tool designed to streamline the process o
 ## Features
 
 - **Cross-Platform**: Works on both Windows and Linux.
-- **Virtual Environment Management**: Easy setup, activation, and deactivation of a Python virtual environment.
+- **Virtual Environment Management**: Automated setup, activation, and deactivation of a Python virtual environment.
 - **GUI Integration**: User-friendly interface to interact with Amass functionalities.
 - **Amass Integration**: Leverage the powerful Amass tool for DNS enumeration and intelligence gathering.
 - **Graph Database Management**: Manage and visualize graph databases storing enumeration results.
