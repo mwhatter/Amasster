@@ -120,7 +120,7 @@ You can also use the individual scripts directly:
 - **amass_enum.py**: Perform DNS enumeration and network mapping.
 - **amass_intel.py**: Collect open source intelligence.
 - **amass_db.py**: Manage and visualize graph databases.
-- **amass_config.py**: Configure settings for the tool.
+- **amass_config.py**: Configure settings for scripted usage of amass.
 - **amass_venv.py**: Manage the virtual environment setup, activation, and deactivation.
 - **setup_amasster.py**: One-liner setup script for the entire project.
 
