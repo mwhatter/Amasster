@@ -27,6 +27,7 @@ Amasster is a powerful, cross-platform tool designed to streamline the process o
 
 - Python 3.6+
 - Internet Connection (for downloading dependencies and Amass)
+- Git(manual installation only, setup script will do this for you)
 
 ## Installation
 
